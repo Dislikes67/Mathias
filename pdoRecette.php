@@ -2,8 +2,12 @@
 
 try {
     //On se connecte à MySQL
-$mysqlClient = new PDO(
-    'mysql:host=localhost;dbname=recette_mathias;charset=utf8', 'root', 'root'
+    $mysqlClient = new PDO(
+    'mysql:host=localhost;dbname=recette_mathias;charset=utf8',
+    'root',
+    '',
+    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+);
 }
 catch (Exception $e)
 
@@ -21,10 +25,10 @@ $recipes = $recipesStatement->fetchAll();
 
 //On affiche chaque recette une à une
 foreach ($recipes as $recipe) {
-?>
-    <p><?php echo $recipe ['author']; ?></p>
-<?php
-}
-?>
+    ?>
+        <p><?php echo $recipe ['author']; ?></p>
+    <?php
+    }
+    ?>
 
 
