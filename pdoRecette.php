@@ -18,19 +18,20 @@ catch (Exception $e)
 //Si tout va bien on peut continuer
 
 //On recupère tout le contenu de la table recette
-$sqlQuery = "SELECT * FROM recette WHERE author = :author AND is_enabled = :is_enabled";
+$sqlQuery = "SELECT nomRecette, tempsPreparation, nomCategorie
+     FROM recette
+     INNER JOIN categorie ON recette.id_categorie = categorie.id_categorie";
 
-$recipesStatement = $mysqlClient->prepare('SELECT * FROM recette');
+$recipesStatement = $mysqlClient->prepare($sqlQuery);
+$recipesStatement->execute([]);
 
-$recipesStatement->execute();
-$recipes = $recipesStatement->fetchAll();
+$recipes = $recipesStatement->fetchAll(); // fetch quand une seule et fetchAll à partir de deux
 
 //On affiche chaque recette une à une
 foreach ($recipes as $recipe) {
     ?>
-        <p><?php echo $recipe ['author']; ?></p>
+        <p><?php echo $recipe ['nomRecette']; ?></p>
     <?php
     }
     ?>
-
 
