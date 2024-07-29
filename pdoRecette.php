@@ -27,7 +27,7 @@ $recipesStatement->execute([]);
 
 $recipes = $recipesStatement->fetchAll(); // fetch quand une seule et fetchAll à partir de deux
 
-//On affiche chaque recette une à une
+//Premiere partie du tableau head
 echo '<table border="1">
     <thead>
         <tr>
@@ -37,10 +37,10 @@ echo '<table border="1">
         </tr>
     </thead>
     <tbody>';
-
+//On affiche chaque recette une à une dans le tableau
 foreach ($recipes as $recipe) {
     echo '<tr>
-    <td>' . ($recipe['nomCategorie']) . '</td>
+        <td>' . ($recipe['nomCategorie']) . '</td>
         <td>' . ($recipe['nomRecette']) . '</td>
         <td>' . ($recipe['tempsPreparation']) . ' minutes</td>
     </tr>';
