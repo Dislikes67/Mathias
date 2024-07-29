@@ -18,8 +18,10 @@ catch (Exception $e)
 //Si tout va bien on peut continuer
 
 //On recupère tout le contenu de la table recette
-$sqlQuery = "SELECT * FROM recette WHERE is_enabled = TRUE";
+$sqlQuery = "SELECT * FROM recette WHERE author = :author AND is_enabled = :is_enabled";
+
 $recipesStatement = $mysqlClient->prepare('SELECT * FROM recette');
+
 $recipesStatement->execute();
 $recipes = $recipesStatement->fetchAll();
 
