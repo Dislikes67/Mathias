@@ -28,24 +28,25 @@ $recipesStatement->execute([]);
 $recipes = $recipesStatement->fetchAll(); // fetch quand une seule et fetchAll à partir de deux
 
 //On affiche chaque recette une à une
-foreach ($recipes as $recipe) {
-    ?>
-    <table border="1">
-        <tr>
-            <th>Nom de la recette</th>
-            <td><?php echo ($recipe['nomRecette']); ?></td>
-        </tr>
-        <tr>
-            <th>Temps de préparation</th>
-            <td><?php echo ($recipe['tempsPreparation']); ?> minutes</td>
-        </tr>
+echo '<table border="1">
+    <thead>
         <tr>
             <th>Catégorie</th>
-            <td><?php echo ($recipe['nomCategorie']); ?></td>
+            <th>Nom de la recette</th>
+            <th>Temps de préparation</th>
         </tr>
-    </table>
-    <br>
-    <?php
-    }
-    ?>
+    </thead>
+    <tbody>';
+
+foreach ($recipes as $recipe) {
+    echo '<tr>
+    <td>' . ($recipe['nomCategorie']) . '</td>
+        <td>' . ($recipe['nomRecette']) . '</td>
+        <td>' . ($recipe['tempsPreparation']) . ' minutes</td>
+    </tr>';
+}
+
+echo '</tbody>
+</table>';
+?>
 
