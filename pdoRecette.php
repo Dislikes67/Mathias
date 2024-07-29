@@ -30,7 +30,10 @@ $recipes = $recipesStatement->fetchAll(); // fetch quand une seule et fetchAll �
 //On affiche chaque recette une à une
 foreach ($recipes as $recipe) {
     ?>
-        <p><?php echo $recipe ['nomRecette']; ?></p>
+    <p>Nom de la recette: <?php echo ($recipe['nomRecette']); ?></p>
+    <p>Temps de préparation: <?php echo ($recipe['tempsPreparation']); ?> minutes</p>
+    <p>Catégorie: <?php echo ($recipe['nomCategorie']); ?></p>
+    <hr>
     <?php
     }
     ?>
