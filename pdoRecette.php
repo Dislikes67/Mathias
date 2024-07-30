@@ -18,7 +18,7 @@ catch (Exception $e)
 //Si tout va bien on peut continuer
 
 //On recupère tout le contenu de la table recette
-$sqlQuery = "SELECT recipe_name, preparation_time, category_name
+$sqlQuery = "SELECT id_recipe, recipe_name, preparation_time, category_name
      FROM recipe
      INNER JOIN category ON recipe.id_category = category.id_category";
 
@@ -41,7 +41,7 @@ echo '<table border="1">
 foreach ($recipes as $recipe) {
     echo '<tr>
         <td>' . ($recipe['category_name']) . '</td>
-        <td>' . ($recipe['recipe_name']) . '</td>
+         <td><a href="detailRecette.php?id= '. $recipe['id_recipe'].'">' . ($recipe['recipe_name']) . '</a></td>
         <td>' . ($recipe['preparation_time']) . ' minutes</td>
     </tr>';
 }
