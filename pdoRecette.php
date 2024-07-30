@@ -3,7 +3,7 @@
 try {
     //On se connecte à MySQL
     $mysqlClient = new PDO(
-    'mysql:host=localhost;dbname=recette_mathias;charset=utf8',
+    'mysql:host=localhost;dbname=recipes;charset=utf8',
     'root',
     '',
     [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
@@ -18,9 +18,9 @@ catch (Exception $e)
 //Si tout va bien on peut continuer
 
 //On recupère tout le contenu de la table recette
-$sqlQuery = "SELECT nomRecette, tempsPreparation, nomCategorie
-     FROM recette
-     INNER JOIN categorie ON recette.id_categorie = categorie.id_categorie";
+$sqlQuery = "SELECT recipe_name, preparation_time, category_name
+     FROM recipe
+     INNER JOIN category ON recipe.id_category = category.id_category";
 
 $recipesStatement = $mysqlClient->prepare($sqlQuery);
 $recipesStatement->execute([]);
@@ -40,9 +40,9 @@ echo '<table border="1">
 //On affiche chaque recette une à une dans le tableau
 foreach ($recipes as $recipe) {
     echo '<tr>
-        <td>' . ($recipe['nomCategorie']) . '</td>
-        <td>' . ($recipe['nomRecette']) . '</td>
-        <td>' . ($recipe['tempsPreparation']) . ' minutes</td>
+        <td>' . ($recipe['category_name']) . '</td>
+        <td>' . ($recipe['recipe_name']) . '</td>
+        <td>' . ($recipe['preparation_time']) . ' minutes</td>
     </tr>';
 }
 
