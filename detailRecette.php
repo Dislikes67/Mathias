@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     try {
         //On se connecte à MySQL
         $mysqlClient = new PDO(
-        'mysql:host=localhost;dbname=recipes;charset=utf8',
+        'mysql:host=localhost;dbname=recette_mathias;charset=utf8',
         'root',
         '',
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
