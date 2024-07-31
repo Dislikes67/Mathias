@@ -46,7 +46,8 @@ $recipe = $recipesStatement->fetch();
 
     $sqlIngredients = "SELECT
                             nomIngredient,
-                            quantite
+                            quantite,
+                            unite
                         FROM
                             ingredient
                         INNER JOIN
@@ -60,21 +61,32 @@ $recipe = $recipesStatement->fetch();
     $ingredients = $ingredientsStatement->fetchAll();
 
 }
-                                                
-
 ?>
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la recette</title>
+</head>
+<body>
 
-<h1><?= $recipe["nomRecette"] ?></h1>
+<?php if ($recipe): ?>
+    <h1><?= ($recipe["nomRecette"]) ?></h1>
+    <p><strong>Type de recette :</strong> <?= ($recipe["nomCategorie"]) ?></p>
+    <p><strong>Temps de préparation :</strong> <?= ($recipe["tempsPreparation"]) ?> minutes</p>
+    <p><strong>Instructions :</strong> <?= nl2br($recipe["instructions"]) ?></p>
 
+    <h2>Ingrédients :</h2>
+    <ul>
+        <?php foreach ($ingredients as $ingredient) : ?>
+            <li><?= ($ingredient["nomIngredient"]) ?> - <?= ($ingredient["quantite"]) ?> <?= ($ingredient["unite"])?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p>Recette non trouvée.</p>
+<?php endif; ?>
 
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>
