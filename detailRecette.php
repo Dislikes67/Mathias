@@ -84,8 +84,6 @@ $recipe = $recipesStatement->fetch();
             <li><?= ($ingredient["nomIngredient"]) ?> - <?= ($ingredient["quantite"]) ?> <?= ($ingredient["unite"])?></li>
         <?php endforeach; ?>
     </ul>
-<?php else: ?>
-    <p>Recette non trouvée.</p>
 <?php endif; ?>
 
 </body>
