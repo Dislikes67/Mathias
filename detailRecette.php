@@ -46,7 +46,7 @@ $recipe = $recipesStatement->fetch();
 
     $sqlIngredients = "SELECT
                             nomIngredient,
-                            quantité,
+                            quantite
                         FROM
                             ingredient
                         INNER JOIN
@@ -60,10 +60,10 @@ $recipe = $recipesStatement->fetch();
     $ingredients = $ingredientsStatement->fetchAll();
 
 }
-
                                                 
 
 ?>
+
 
 <h1><?= $recipe["nomRecette"] ?></h1>
 
