@@ -21,6 +21,16 @@ if (isset($_GET['id'])) {
         die('Erreur : ' . $e->getMessage());
     }
 }
-    $sqlQuery = "SELECT id_recipe, recipe_name, preparation_time, category_name, instructions
-                 FROM recipe
-                 INNER JOIN category ON recipe.id_category = category.id_category
+    $sqlQuery = "SELECT
+                    id_recette
+                    instructions,
+                    temps_preparation,
+                    quantite
+                FROM 
+                     recette 
+                INNER JOIN 
+                     categorie ON id_categorie = id_categorie
+                INNER JOIN 
+                     contenir ON id_recette = id_recette
+                INNER JOIN 
+                     ingredient ON id_ingredient = id_ingredient";

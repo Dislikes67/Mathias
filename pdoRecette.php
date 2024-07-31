@@ -19,8 +19,8 @@ catch (Exception $e)
 
 //On recupère tout le contenu de la table recette
 $sqlQuery = "SELECT id_recette, nomRecette, tempsPreparation, nomCategorie
-     FROM recette
-     INNER JOIN categorie ON recette.id_categorie = categorie.id_categorie";
+             FROM recette
+             INNER JOIN categorie ON recette.id_categorie = categorie.id_categorie";
 
 $recipesStatement = $mysqlClient->prepare($sqlQuery);
 $recipesStatement->execute([]);
