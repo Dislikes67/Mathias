@@ -23,7 +23,7 @@ $sqlQuery = "SELECT id_recette, nomRecette, tempsPreparation, nomCategorie
              INNER JOIN categorie ON recette.id_categorie = categorie.id_categorie";
 
 $recipesStatement = $mysqlClient->prepare($sqlQuery);
-$recipesStatement->execute([]);
+$recipesStatement->execute();
 
 $recipes = $recipesStatement->fetchAll(); // fetch quand une seule et fetchAll à partir de deux
 
@@ -41,7 +41,7 @@ echo '<table border="1">
 foreach ($recipes as $recipe) {
     echo '<tr>
         <td>' . ($recipe['nomCategorie']) . '</td>
-         <td><a href="detailRecette.php?id= '. $recipe['id_recette'].'">' . ($recipe['nomRecette']) . '</a></td>
+         <td><a href="detailRecette.php?id='. $recipe['id_recette'].'">' . ($recipe['nomRecette']) . '</a></td>
         <td>' . ($recipe['tempsPreparation']) . ' minutes</td>
     </tr>';
 }
