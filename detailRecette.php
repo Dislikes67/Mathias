@@ -13,16 +13,14 @@ if (isset($_GET['id'])) {
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
     );
     }
+
     catch (Exception $e)
     
     {
         // En cas d'erreur, on affiche un message et on arrête tout
         die('Erreur : ' . $e->getMessage());
     }
+}
     $sqlQuery = "SELECT id_recipe, recipe_name, preparation_time, category_name, instructions
                  FROM recipe
                  INNER JOIN category ON recipe.id_category = category.id_category
-
-
-
-}
