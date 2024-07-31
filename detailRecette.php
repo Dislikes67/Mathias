@@ -27,7 +27,8 @@ if (isset($_GET['id'])) {
                     nomRecette,
                     instructions,               
                     tempsPreparation,
-                    nomCategorie
+                    nomCategorie,
+                    imageRecette
                 FROM 
                      recette 
                 INNER JOIN 
