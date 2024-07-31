@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
         '',
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
     );
-    }
+}
 
     catch (Exception $e)
     
@@ -22,15 +22,35 @@ if (isset($_GET['id'])) {
     }
 }
     $sqlQuery = "SELECT
-                    id_recette
+                    id_recette,
                     instructions,
                     temps_preparation,
                     quantite
                 FROM 
                      recette 
                 INNER JOIN 
-                     categorie ON id_categorie = id_categorie
+                     categorie ON recette.id_categorie = categorie.id_categorie
                 INNER JOIN 
-                     contenir ON id_recette = id_recette
+                     contenir ON recette.id_recette = contenir.id_recette
                 INNER JOIN 
-                     ingredient ON id_ingredient = id_ingredient";
+                     ingredient ON contenir.id_ingredient = ingredient.id_ingredient
+                WHERE
+                    recette.id_recette =  ";
+
+
+$recipesStatement = $mysqlClient->prepare($sqlQuery);
+$recipesStatement->execute([]);
+
+$recipes = $recipesStatement->fetch();
+
+
+
+
+
+
+
+
+
+
+
+
