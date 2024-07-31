@@ -14,15 +14,14 @@ if (isset($_GET['id'])) {
         //configure PDO pour lancer une exception en cas d'erreur.
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
     );
-}
 
-    catch (Exception $e)
+} catch (Exception $e)
     
     {
         // En cas d'erreur, on affiche un message et on arrête tout
         die('Erreur : ' . $e->getMessage());
     }
-}
+
     $sqlQuery = "SELECT
                     id_recette,
                     nomRecette,
@@ -46,7 +45,7 @@ $recipesStatement->execute(["id_recette" => $id_recipe]);
 $recipe = $recipesStatement->fetch();
 
     $sqlIngredients = "SELECT
-                            nom_Ingredient,
+                            nomIngredient,
                             quantité,
                         FROM
                             ingredient
@@ -54,6 +53,14 @@ $recipe = $recipesStatement->fetch();
                             contenir ON ingredient.id_ingredient = contenir.id_ingredient
                         WHERE
                             contenir.id_recette = :id_recette";
+
+    $ingredientsStatement = $mysqlClient->prepare($sqlIngredients);
+    $ingredientsStatement->execute(["id_recette" => $id_recipe]);
+
+    $ingredients = $ingredientsStatement->fetchAll();
+
+}
+
                                                 
 
 ?>
