@@ -45,7 +45,16 @@ $recipesStatement->execute(["id_recette" => $id_recipe]);
 //Récupère le résultat de la requête sous forme de tableau associatif.
 $recipe = $recipesStatement->fetch();
 
-// ingredients
+    $sqlIngredients = "SELECT
+                            nom_Ingredient,
+                            quantité,
+                        FROM
+                            ingredient
+                        INNER JOIN
+                            contenir ON ingredient.id_ingredient = contenir.id_ingredient
+                        WHERE
+                            contenir.id_recette = :id_recette";
+                                                
 
 ?>
 
