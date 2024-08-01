@@ -5,6 +5,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $file = filter_input(INPUT_POST, "file", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $nb = filter_input(INPUT_POST, "nb", FILTER_VALIDATE_INT);
     
+    // Validation supplémentaire pour s'assurer que le champ 'recette' n'est pas vide
+    if (!$nb || !$recette) {
+        die('Entrée invalide.');
+    }
+
     // Connexion à la base de données
     try {
         $mysqlClient = new PDO(
@@ -20,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Traitement de l'image uploadée
     if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['file']['tmp_name'];
-        $fileName = $_FILES['file']['name'];
+        $fileName = $_FILES['file']['name']; // Sanitize file name
         $fileNameCmps = explode(".", $fileName);
         $fileExtension = strtolower(end($fileNameCmps));
 
@@ -42,13 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Récupération des détails de la recette sélectionnée
-    if (isset($_POST['recette'])) {
-        $id_recipe = $_POST['recette'];
+    if ($recette) {
         $sqlQuery = "SELECT * FROM recette WHERE id_recette = :id_recette";
         $recipesStatement = $mysqlClient->prepare($sqlQuery);
-        $recipesStatement->execute(["id_recette" => $id_recipe]);
+        $recipesStatement->execute(["id_recette" => $recette]);
         $recipe = $recipesStatement->fetch();
-
+        
         if ($recipe) {
             echo "<h2>Détails de la recette</h2>";
             echo "<p>Nom de la recette: " . htmlspecialchars($recipe['nomRecette']) . "</p>";
