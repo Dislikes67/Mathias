@@ -1,20 +1,22 @@
 <?php
-
-if(isset($_GET['id'])) {
-    $id_recipe = $_GET['id'];
-
-    //Sanitize and validate inputs
-    $file = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $price = filter_input(INPUT_POST, "price", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $nb = filter_input(INPUT_POST, "qtt", FILTER_VALIDATE_INT);
+// Connexion à la base de données
+try {
+    $mysqlClient = new PDO(
+        'mysql:host=localhost;dbname=recette_mathias;charset=utf8',
+        'root',
+        '',
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
+} catch (Exception $e) {
+    die('Erreur : ' . $e->getMessage());
 }
-    // Récupération des recettes pour le menu déroulant
+
+// Récupération des recettes pour le menu déroulant
 $sqlQuery = "SELECT id_recette, nomRecette FROM recette";
 $recipesStatement = $mysqlClient->prepare($sqlQuery);
 $recipesStatement->execute();
 $recipes = $recipesStatement->fetchAll();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,27 +29,28 @@ $recipes = $recipesStatement->fetchAll();
     <div class="container">
         <h1>Rechercher une recette</h1>
         
-        <form action="traitement.php" method="post"> <!--Le formulaire est envoyé en utilisant la requête HTML POST qui ne le stocke pas dans l'url à l'inverse de la méthode GET -->
+        <form action="traitement.php" method="post" enctype="multipart/form-data"> <!-- Ajout de enctype pour les fichiers -->
             <p>
                 <label>
                     Photo :
-                    <input type="file" accept="image/*, text/*" name="file"/>
+                    <input type="file" accept="image/*, text/*" name="file" required/>
                 </label>
             </p>
             <p>
                 <label>
                     Recette :
-                <label for="recipe-select"></label>
-
-                    <select name="recette" id="recipe-select">
-                    <option value="">--Choisissez une recette--</option>
+                    <select name="recette" id="recipe-select" required>
+                        <option value="">--Choisissez une recette--</option>
+                        <?php foreach ($recipes as $recipe) : ?>
+                            <option value="<?= $recipe['id_recette'] ?>"><?= htmlspecialchars($recipe['nomRecette']) ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </label>
             </p>
             <p>
                 <label>
                     Nombre de personnes :
-                    <input type="number" name="nb" value="1" min=1 required>
+                    <input type="number" name="nb" value="1" min="1" required>
                 </label>
             </p>
             <p>
