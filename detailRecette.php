@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
     );
 
-} catch (Exception $e)
+    } catch (Exception $e)
     
     {
         // En cas d'erreur, on affiche un message et on arrête tout
@@ -78,6 +78,10 @@ $recipe = $recipesStatement->fetch();
     <p><strong>Type de recette :</strong> <?= ($recipe["nomCategorie"]) ?></p>
     <p><strong>Temps de préparation :</strong> <?= ($recipe["tempsPreparation"]) ?> minutes</p>
     <p><strong>Instructions :</strong> <?= nl2br($recipe["instructions"]) ?></p>
+
+<?php if (!empty($recipe["imageRecette"])): ?>
+    <p><img src="<?= ($recipe["imageRecette"]) ?>" alt="<?= ($recipe["nomRecette"]) ?>" style="max-width: 30%; height: auto;"></p>
+<?php endif; ?>
 
     <h2>Ingrédients :</h2>
     <ul>
