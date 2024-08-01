@@ -12,7 +12,7 @@ try {
 }
 
 // Récupération des recettes pour le menu déroulant
-$sqlQuery = "SELECT id_recette, nomRecette FROM recette";
+$sqlQuery = "SELECT id_categorie, nomCategorie FROM categorie";
 $recipesStatement = $mysqlClient->prepare($sqlQuery);
 $recipesStatement->execute();
 $recipes = $recipesStatement->fetchAll();
@@ -27,7 +27,7 @@ $recipes = $recipesStatement->fetchAll();
 </head>
 <body>
     <div class="container">
-        <h1>Rechercher une recette</h1>
+        <h1>Créer une recette</h1>
         
         <form action="traitement.php" method="post" enctype="multipart/form-data"> <!-- Ajout de enctype pour les fichiers -->
             <p>
@@ -38,23 +38,35 @@ $recipes = $recipesStatement->fetchAll();
             </p>
             <p>
                 <label>
-                    Recette :
-                    <select name="recette" id="recipe-select" required>
-                        <option value="">--Choisissez une recette--</option>
+                    Catégorie :
+                    <select name="categorie" id="category-select" required>
+                        <option value="">--Choisissez une catégorie--</option>
                         <?php foreach ($recipes as $recipe) : ?>
-                            <option value="<?= $recipe['id_recette'] ?>"><?= htmlspecialchars($recipe['nomRecette']) ?></option>
+                            <option value="<?= $recipe['id_categorie'] ?>"><?= htmlspecialchars($recipe['nomCategorie']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </label>
             </p>
             <p>
                 <label>
-                    Nombre de personnes :
-                    <input type="number" name="nb" value="1" min="1" required>
+                    Nom du plat :
+                    <input type="text" name="name">
                 </label>
             </p>
             <p>
-                <input type="submit" name="submit" value="Afficher la recette">
+                <label>
+                    Temps de préparation :
+                    <input type="number" name="temps" value="1" min=1 required>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Ingrédients :
+                    <input type="text" name="name"
+                </label>
+            </p>
+            <p>
+                <input type="submit" name="submit" value="Enregistrer la recette">
             </p>
         </form>
     </div>
