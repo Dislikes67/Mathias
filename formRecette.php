@@ -62,7 +62,7 @@ $recipes = $recipesStatement->fetchAll();
             <p>
                 <label>
                     Ingrédients :
-                    <input type="text" name="name"
+                    <textarea rows="2" cols="25"></textarea>
                 </label>
             </p>
             <p>
