@@ -66,6 +66,12 @@ $recipes = $recipesStatement->fetchAll();
                 </label>
             </p>
             <p>
+                <label>
+                    Instructions :
+                    <textarea rows="2" cols="25"></textarea>
+                </label>
+            </p>
+            <p>
                 <input type="submit" name="submit" value="Enregistrer la recette">
             </p>
         </form>
