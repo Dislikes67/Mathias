@@ -1,6 +1,6 @@
 <?php
 // Connexion à la base de données
-try {
+try{
     $mysqlClient = new PDO(
         'mysql:host=localhost;dbname=recette_mathias;charset=utf8',
         'root',
