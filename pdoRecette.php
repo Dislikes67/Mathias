@@ -18,14 +18,14 @@ catch (Exception $e)
 //Si tout va bien on peut continuer
 
 //On recupère tout le contenu de la table recette
-$sqlQuery = "SELECT id_recette, nomRecette, tempsPreparation, nomCategorie
+$sqlQuery= "SELECT id_recette, nomRecette, tempsPreparation, nomCategorie
              FROM recette
              INNER JOIN categorie ON recette.id_categorie = categorie.id_categorie";
 
 $recipesStatement = $mysqlClient->prepare($sqlQuery);
 $recipesStatement->execute();
 
-$recipes = $recipesStatement->fetchAll(); // fetch quand une seule et fetchAll à partir de deux
+$recipes= $recipesStatement->fetchAll(); // fetch quand une seule et fetchAll à partir de deux
 
 //Premiere partie du tableau head
 echo '<table border="1">
